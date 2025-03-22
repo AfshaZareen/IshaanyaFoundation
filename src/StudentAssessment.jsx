@@ -1,3 +1,5 @@
+import html2canvas from "html2canvas";
+import jsPDF from "jspdf";
 import React from "react";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, Legend } from "recharts";
 import { Card, CardContent, Button, Typography } from "@mui/material";
@@ -31,20 +33,13 @@ if (currentStudent.score >= averageScore + 10) {
 
 // 🔹 Download Report Function
 function downloadReport() {
-  const reportContent = `
-    Student Report:
-    Name: ${currentStudent.name}
-    Score: ${currentStudent.score}
-    Class Average: ${averageScore.toFixed(2)}
-    Analysis: ${performanceAnalysis}
-  `;
-  const blob = new Blob([reportContent], { type: "text/plain" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = "Student_Report.txt";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  const reportElement = document.body; // You can replace this with a more specific ref
+  html2canvas(reportElement).then((canvas) => {
+    const imgData = canvas.toDataURL("image/png");
+    const pdf = new jsPDF();
+    pdf.addImage(imgData, "PNG", 10, 10, 180, 160);
+    pdf.save("Student_Report.pdf");
+  });
 }
 
 function StudentAssessment() {
