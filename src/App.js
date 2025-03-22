@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import StudentAssessment from "./StudentAssessment";
+import ClassPerformance from "./ClassPerformance";
+import { Button, Container, Box } from "@mui/material";
 
 function App() {
+  const [view, setView] = useState("individual"); // Toggle between views
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Container sx={{ textAlign: "center", marginTop: 4 }}>
+      <Box sx={{ marginBottom: 3 }}>
+        <Button variant={view === "individual" ? "contained" : "outlined"} onClick={() => setView("individual")} sx={{ marginRight: 2 }}>
+          Individual Student
+        </Button>
+        <Button variant={view === "class" ? "contained" : "outlined"} onClick={() => setView("class")}>
+          Class Performance
+        </Button>
+      </Box>
+
+      {view === "individual" ? <StudentAssessment /> : <ClassPerformance />}
+    </Container>
   );
 }
 
 export default App;
+
+
