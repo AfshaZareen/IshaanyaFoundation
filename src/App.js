@@ -4,7 +4,7 @@ import ClassPerformance from "./ClassPerformance";
 import { Button, Container, Box } from "@mui/material";
 
 function App() {
-  const [view, setView] = useState("individual"); // Toggle between views
+  const [view, setView] = useState("class"); // Toggle between views
 
   return (
     <Container sx={{ textAlign: "center", marginTop: 4 }}>
